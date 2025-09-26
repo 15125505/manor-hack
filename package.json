@@ -5,7 +5,6 @@
     "type": "module",
     "scripts": {
         "up": "npm run build && cd cmd && npm run up && cd ..",
-        "web": "cd cmd && npm run web && cd ..",
         "proto": "cd cmd && npm run proto && cd ..",
         "dev": "vite --host 0.0.0.0",
         "build": "tsc -b && vite build",
