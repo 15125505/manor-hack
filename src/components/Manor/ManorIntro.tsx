@@ -62,7 +62,7 @@ const ManorIntro: React.FC<ManorIntroProps> = ({
                 </div>
 
                 {/* 固定在底部的 TabBar */}
-                <div className="fixed bottom-0 left-0 right-0 border-t bg-white py-2 z-50">
+                <div className="fixed bottom-0 left-0 right-0 border-t bg-white py-2 mb-4 z-50">
                     <Tabs
                         value={activeTab}
                         onValueChange={handleTabChange}
