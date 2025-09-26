@@ -63,9 +63,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                         style={{
                             left: '50.5%',
                             top: '36.25%',
-                            width: '19.33%',
                             height: '9%',
-                            fontSize: 'clamp(0.75rem, 2vw, 1rem)',
+                            fontSize: 'clamp(0.65rem, 1.6vw, 0.9rem)',
                             lineHeight: '1.2',
                             transform: 'translate(-50%, -50%)'
                         }}
