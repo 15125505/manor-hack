@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Button, Typography, Skeleton, useToast } from "@worldcoin/mini-apps-ui-kit-react";
 import { useUserStore } from "../../stores/userStore";
 import { getChain } from "../../utils/tool";
@@ -8,8 +8,12 @@ import ManorDetailRow from "./ManorDetailRow";
 import DepositDrawer from "../../components/Manor/DepositDrawer.tsx";
 import ResultDrawer from "../../components/ResultDrawer";
 import { gServer } from "../../utils/server.ts";
+import { useTranslation } from "react-i18next";
+
+const formatError = (error: unknown) => (error instanceof Error ? error.message : String(error));
 
 const ManorDetailPage: React.FC = () => {
+    const { t, i18n } = useTranslation();
     const { manorInfo, isLoading, fetchManorInfo, userTokens, setPendingTransaction, checkAndWaitForPendingTransaction, setLoading } = useUserStore();
     const [showIntro, setShowIntro] = useState(false);
     const [showDepositDrawer, setShowDepositDrawer] = useState(false);
@@ -46,20 +50,23 @@ const ManorDetailPage: React.FC = () => {
     ];
 
     // 测试用的作为继承人的庄园数据
-    const testInheritedManors = [
-        {
-            id: 1,
-            name: "庄园 1",
-            address: "0x1234...5678",
-            fullAddress: "0x1234567890123456789012345678901234567890",
-        },
-        {
-            id: 2,
-            name: "庄园 2",
-            address: "0xABCD...EFGH",
-            fullAddress: "0xABCDEF1234567890ABCDEF1234567890ABCDEF12",
-        },
-    ];
+    const testInheritedManors = useMemo(
+        () => [
+            {
+                id: 1,
+                name: t("manorDetail.samples.inheritedName", { index: 1 }),
+                address: "0x1234...5678",
+                fullAddress: "0x1234567890123456789012345678901234567890",
+            },
+            {
+                id: 2,
+                name: t("manorDetail.samples.inheritedName", { index: 2 }),
+                address: "0xABCD...EFGH",
+                fullAddress: "0xABCDEF1234567890ABCDEF1234567890ABCDEF12",
+            },
+        ],
+        [t],
+    );
 
     // 刷新庄园信息和用户代币信息
     const handleRefreshManorInfo = async () => {
@@ -112,8 +119,11 @@ const ManorDetailPage: React.FC = () => {
 
             // 显示成功结果
             setResultType("success");
-            setResultTitle("存入成功！");
-            setResultDescription(`已成功存入 ${amount} WBTC`);
+            const formattedAmount = amount.toFixed(8);
+            setResultTitle(t("manorDetail.result.depositSuccessTitle"));
+            setResultDescription(
+                t("manorDetail.result.depositSuccessDescription", { amount: formattedAmount }),
+            );
 
             // 关闭存入抽屉，显示结果抽屉
             setShowDepositDrawer(false);
@@ -130,7 +140,7 @@ const ManorDetailPage: React.FC = () => {
             const errorMsg = error?.message ?? error.toString();
             if (!errorMsg.includes("user_rejected")) {
                 // 显示错误提示
-                toast.error({ title: error?.message || "未知错误" });
+                toast.error({ title: error?.message || t("errors.unknown") });
 
                 // 失败时保持在存入界面，1秒后重置状态，让用户可以重试
                 setTimeout(() => setDepositLoading(undefined), 1000);
@@ -148,6 +158,7 @@ const ManorDetailPage: React.FC = () => {
 
         setWithdrawLoading("pending");
         try {
+            const withdrawnAmount = manorInfo?.wbtcBalance?.toFixed(8) ?? "0.00000000";
             const { transaction_id, mini_app_id } = await chain.withdrawWBTC();
 
             // 设置待处理交易
@@ -162,8 +173,10 @@ const ManorDetailPage: React.FC = () => {
 
             // 显示成功结果
             setResultType("success");
-            setResultTitle("取钱成功！");
-            setResultDescription(`已成功取出 ${manorInfo?.wbtcBalance?.toFixed(8) ?? "0"} WBTC`);
+            setResultTitle(t("manorDetail.result.withdrawSuccessTitle"));
+            setResultDescription(
+                t("manorDetail.result.withdrawSuccessDescription", { amount: withdrawnAmount }),
+            );
 
             // 显示结果抽屉
             setShowResultDrawer(true);
@@ -179,8 +192,8 @@ const ManorDetailPage: React.FC = () => {
             if (!errorMsg.includes("user_rejected")) {
                 // 显示失败结果
                 setResultType("error");
-                setResultTitle("取钱失败");
-                setResultDescription(error?.message || "未知错误");
+                setResultTitle(t("manorDetail.result.withdrawFailedTitle"));
+                setResultDescription(error?.message || t("errors.unknown"));
 
                 // 显示结果抽屉
                 setShowResultDrawer(true);
@@ -214,9 +227,11 @@ const ManorDetailPage: React.FC = () => {
             const needPayment = Math.random() > 0.5; // 模拟50%概率需要付费
             const fee = 5; // 模拟手续费为5 WLD
 
-            const confirmMessage = "请输入继承人地址（多个地址用逗号分隔):";
+            const confirmMessage = t("manorDetail.dialogs.setHeirsPrompt");
             if (needPayment) {
-                const payConfirm = confirm(`修改继承人需要支付 ${fee} WLD 手续费。\n\n继续操作吗？`);
+                const payConfirm = confirm(
+                    t("manorDetail.dialogs.setHeirsFeeConfirm", { fee }),
+                );
                 if (!payConfirm) {
                     setSetInheritorsLoading(false);
                     return;
@@ -243,7 +258,9 @@ const ManorDetailPage: React.FC = () => {
 
             // 不立即刷新数据，等ResultDrawer关闭时再刷新
         } catch (error) {
-            toast.error({ title: `设置继承人失败: ${error}` });
+            toast.error({
+                title: t("errors.setHeirsFailed", { error: formatError(error) }),
+            });
         } finally {
             setSetInheritorsLoading(false);
         }
@@ -268,8 +285,8 @@ const ManorDetailPage: React.FC = () => {
 
             // 显示成功结果
             setResultType("success");
-            setResultTitle("活跃度更新成功！");
-            setResultDescription("您的庄园活跃时间已更新");
+            setResultTitle(t("manorDetail.result.activitySuccessTitle"));
+            setResultDescription(t("manorDetail.result.activitySuccessDescription"));
 
             // 显示结果抽屉
             setShowResultDrawer(true);
@@ -283,8 +300,8 @@ const ManorDetailPage: React.FC = () => {
             if (!errorMsg.includes("user_rejected")) {
                 // 显示失败结果
                 setResultType("error");
-                setResultTitle("活跃度更新失败");
-                setResultDescription(error?.message || "未知错误");
+                setResultTitle(t("manorDetail.result.activityFailedTitle"));
+                setResultDescription(error?.message || t("errors.unknown"));
 
                 // 显示结果抽屉
                 setShowResultDrawer(true);
@@ -295,14 +312,14 @@ const ManorDetailPage: React.FC = () => {
 
     // 格式化日期（用于活跃时间）
     const formatDate = (timestamp: number) => {
-        if (timestamp === 0) return "未存入资金";
-        return new Date(timestamp * 1000).toLocaleDateString("zh-CN");
+        if (timestamp === 0) return t("common.noFunds");
+        return new Date(timestamp * 1000).toLocaleDateString(i18n.language);
     };
 
     // 格式化锁定到期时间（显示时分秒）
     const formatUnlockTime = (timestamp: number) => {
-        if (timestamp === 0) return "未存入资金";
-        return new Date(timestamp * 1000).toLocaleString("zh-CN", {
+        if (timestamp === 0) return t("common.noFunds");
+        return new Date(timestamp * 1000).toLocaleString(i18n.language, {
             year: "numeric",
             month: "2-digit",
             day: "2-digit",
@@ -319,10 +336,10 @@ const ManorDetailPage: React.FC = () => {
             <div className="w-screen h-screen flex items-center justify-center bg-white">
                 <div className="text-center">
                     <Typography variant="body" level={2} className="text-gray-600 mb-4">
-                        无法获取庄园信息
+                        {t("manorDetail.fallbackTitle")}
                     </Typography>
                     <Button variant="primary" onClick={handleRefreshManorInfo} disabled={isLoading}>
-                        {isLoading ? "刷新中..." : "重新加载"}
+                        {isLoading ? t("common.refreshing") : t("common.reload")}
                     </Button>
                 </div>
             </div>
@@ -336,7 +353,7 @@ const ManorDetailPage: React.FC = () => {
                 <div className="pb-4" style={{ borderBottom: "1px solid #e5e7eb" }}>
                     <div className="flex items-center justify-between">
                         <Typography variant="heading" level={2} className="text-black">
-                            我的庄园
+                            {t("manorDetail.title")}
                         </Typography>
 
                         <Button
@@ -348,17 +365,18 @@ const ManorDetailPage: React.FC = () => {
                             aria-label="Refresh"
                         >
                             <Refresh className={isLoading ? "animate-spin" : ""} />
-                            刷新
+                            {t("common.refresh")}
                         </Button>
                     </div>
                     <Typography variant="body" level={3} className="text-gray-500 pt-4">
-                        查看并管理您的庄园，如有任何疑问请
+                        {t("manorDetail.instructionsPrefix")}
                         <span
                             className="text-gray-700 underline cursor-pointer hover:text-gray-900"
                             onClick={() => setShowIntro(true)}
                         >
-                            查看使用说明
+                            {t("common.viewGuide")}
                         </span>
+                        {t("manorDetail.instructionsSuffix")}
                     </Typography>
                 </div>
 
@@ -367,13 +385,13 @@ const ManorDetailPage: React.FC = () => {
                     {/* 基础信息区域 */}
                     <div style={{ borderBottom: "1px solid #e5e7eb" }} className="flex flex-col py-4">
                         <Typography variant="label" level={1} className="text-gray-400">
-                            基础信息
+                            {t("manorDetail.section.basicInfo")}
                         </Typography>
 
                         {/* WBTC余额 */}
                         <ManorDetailRow
                             icon={{ type: "token", value: "BTC" }}
-                            description={{ text: "比特币资产" }}
+                            description={{ text: t("manorDetail.description.asset") }}
                             content={{
                                 text: `WBTC ${manorInfo.wbtcBalance?.toFixed(8) ?? "0.00000000"}`,
                                 isLoading: isLoading,
@@ -393,12 +411,12 @@ const ManorDetailPage: React.FC = () => {
                                     {withdrawLoading === "pending" ? (
                                         <>
                                             <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
-                                            取钱中...
+                                            {t("manorDetail.actions.withdrawing")}
                                         </>
                                     ) : isExpired() && hasWBTCBalance() ? (
-                                        "取"
+                                        t("manorDetail.actions.withdraw")
                                     ) : (
-                                        "存"
+                                        t("manorDetail.actions.deposit")
                                     )}
                                 </Button>
                             }
@@ -407,7 +425,7 @@ const ManorDetailPage: React.FC = () => {
                         {/* 锁定到期时间 */}
                         <ManorDetailRow
                             icon={{ type: "circular", children: <Lock className="text-white size-4" /> }}
-                            description={{ text: "锁定到期时间" }}
+                            description={{ text: t("manorDetail.labels.unlockTime") }}
                             rightSlot={
                                 isLoading ? (
                                     <Skeleton className="h-[22px] w-32" />
@@ -422,7 +440,7 @@ const ManorDetailPage: React.FC = () => {
                         {/* 上次活跃时间 */}
                         <ManorDetailRow
                             icon={{ type: "circular", children: <Activity className="text-white size-4" /> }}
-                            description={{ text: "上次活跃时间" }}
+                            description={{ text: t("manorDetail.labels.lastActive") }}
                             content={{ text: formatDate(manorInfo.lastActiveTime || 0), isLoading: isLoading }}
                             rightSlot={
                                 <Button
@@ -435,10 +453,10 @@ const ManorDetailPage: React.FC = () => {
                                     {refreshActivityLoading ? (
                                         <>
                                             <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-600 border-t-transparent"></div>
-                                            更新中...
+                                            {t("manorDetail.actions.refreshActivityInProgress")}
                                         </>
                                     ) : (
-                                        "更新活跃"
+                                        t("manorDetail.actions.refreshActivity")
                                     )}
                                 </Button>
                             }
@@ -449,7 +467,7 @@ const ManorDetailPage: React.FC = () => {
                     <div style={{ borderBottom: "1px solid #e5e7eb" }} className="flex flex-col gap-4 py-4">
                         <div className="flex items-center justify-between">
                             <Typography variant="label" level={1} className="text-gray-400 py-2">
-                                我的继承人
+                                {t("manorDetail.section.myHeirs")}
                             </Typography>
                             <Button
                                 variant="secondary"
@@ -461,10 +479,10 @@ const ManorDetailPage: React.FC = () => {
                                 {setInheritorsLoading ? (
                                     <>
                                         <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-600 border-t-transparent"></div>
-                                        设置中...
+                                        {t("manorDetail.actions.setHeirsInProgress")}
                                     </>
                                 ) : (
-                                    "设置继承人"
+                                    t("manorDetail.actions.setHeirs")
                                 )}
                             </Button>
                         </div>
@@ -499,14 +517,14 @@ const ManorDetailPage: React.FC = () => {
                                 ))}
                             </div>
                         ) : (
-                            <ManorDetailRow emptyText="暂无继承人" />
+                            <ManorDetailRow emptyText={t("manorDetail.empty.heirs")} />
                         )}
                     </div>
 
                     {/* 我作为继承人的庄园列表 */}
                     <div style={{ borderBottom: "1px solid #e5e7eb" }} className="flex flex-col gap-4 py-4">
                         <Typography variant="label" level={1} className="text-gray-400">
-                            我作为继承人的庄园
+                            {t("manorDetail.section.inheritedManors")}
                         </Typography>
 
                         {/* 庄园列表内容 */}
@@ -538,19 +556,25 @@ const ManorDetailPage: React.FC = () => {
                                         rightSlot={
                                             <Button
                                                 variant="secondary"
-                                                onClick={() => toast.success({ title: `进入${manor.name}功能待实现` })}
+                                                onClick={() =>
+                                                    toast.success({
+                                                        title: t("manorDetail.toast.enterUpcomingFeature", {
+                                                            name: manor.name,
+                                                        }),
+                                                    })
+                                                }
                                                 size="sm"
                                                 className="w-32 flex items-center justify-center gap-2"
                                                 disabled={isOperationInProgress()}
                                             >
-                                                进入庄园
+                                                {t("manorDetail.actions.enterManor")}
                                             </Button>
                                         }
                                     />
                                 ))}
                             </div>
                         ) : (
-                            <ManorDetailRow emptyText="您还不是任何庄园的继承人" />
+                            <ManorDetailRow emptyText={t("manorDetail.empty.inherited")} />
                         )}
                     </div>
                 </div>
@@ -583,7 +607,7 @@ const ManorDetailPage: React.FC = () => {
                     title={resultTitle}
                     description={resultDescription}
                     type={resultType}
-                    buttonText="确定"
+                    buttonText={t("common.confirm")}
                     onButtonClick={handleResultDrawerClose}
                 />
             </div>

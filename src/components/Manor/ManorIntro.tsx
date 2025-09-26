@@ -9,9 +9,8 @@ import {
 } from "@worldcoin/mini-apps-ui-kit-react";
 import { InfoCircle, IceCream } from "iconoir-react";
 import ReactMarkdown from "react-markdown";
-
-// 导入Markdown内容
-import { usageContent, contractContent } from "../../content/manor-content";
+import { useTranslation } from "react-i18next";
+import { getManorContent } from "../../content/manor-content";
 
 interface ManorIntroProps {
     open: boolean;
@@ -22,6 +21,8 @@ const ManorIntro: React.FC<ManorIntroProps> = ({
     open,
     onClose,
 }) => {
+    const { t } = useTranslation();
+    const { usageContent, contractContent } = getManorContent(t);
     const [activeTab, setActiveTab] = useState("usage");
 
     const handleTabChange = (value: string) => {
@@ -37,7 +38,7 @@ const ManorIntro: React.FC<ManorIntroProps> = ({
             <DrawerContent className="p-6 flex flex-col h-[100vh]">
                 <DrawerHeader>
                     <DrawerTitle className="text-2xl font-bold text-green-800">
-                        韭菜庄园详细介绍
+                        {t("manorIntro.title")}
                     </DrawerTitle>
                 </DrawerHeader>
 
@@ -70,12 +71,12 @@ const ManorIntro: React.FC<ManorIntroProps> = ({
                         <TabItem
                             value="usage"
                             icon={<InfoCircle />}
-                            label="使用说明"
+                            label={t("manorIntro.tabs.usage")}
                         />
                         <TabItem
                             value="contract"
                             icon={<IceCream />}
-                            label="合约条款"
+                            label={t("manorIntro.tabs.contract")}
                         />
                     </Tabs>
                 </div>

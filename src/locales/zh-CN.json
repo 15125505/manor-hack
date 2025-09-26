@@ -11,5 +11,157 @@
   "loginSuccess": "登录成功",
   "loginFailed": "登录失败",
   "homeTab": "首页",
-  "mineTab": "我的"
+  "mineTab": "我的",
+  "common": {
+    "back": "返回",
+    "confirm": "确定",
+    "cancel": "取消",
+    "loading": "加载中...",
+    "refreshing": "刷新中...",
+    "reload": "重新加载",
+    "refresh": "刷新",
+    "viewGuide": "查看使用说明",
+    "noFunds": "未存入资金"
+  },
+  "errors": {
+    "walletUnavailable": "钱包环境不可用",
+    "loginFailed": "登录失败: {{error}}",
+    "fetchUserFailed": "获取用户数据失败: {{error}}",
+    "purchaseFailed": "购买失败: {{error}}",
+    "unknown": "未知错误",
+    "setHeirsFailed": "设置继承人失败: {{error}}",
+    "transactionIdMissing": "无法获取交易ID",
+    "metaMaskRequired": "请先安装MetaMask等以太坊钱包插件",
+    "networkFailure": "网络连接失败"
+  },
+  "auth": {
+    "alt": "韭菜庄园",
+    "overlayLine1": "欢迎来到",
+    "overlayLine2": "韭菜庄园",
+    "headline": "韭菜你又来了！",
+    "feedback": {
+      "pending": "稍等，正在为你准备庄园...",
+      "success": "欢迎回家！",
+      "failed": "登录出错了"
+    },
+    "button": "既然来了，别怕再被割一次"
+  },
+  "storyGuide": {
+    "alt": "韭菜庄园",
+    "skip": "跳过",
+    "previous": "上一个",
+    "next": "下一个",
+    "finish": "步入新的开始",
+    "stories": [
+      "从前，有个卖牛肉的人。",
+      "有一天，他发现了比特币这个金矿。",
+      "随后，他创建了中国内蒙最大的比特币矿场。",
+      "不幸的是，中国政府一纸禁令，矿场被迫关闭。",
+      "他开着车在全中国宣传比特币，俗称“比特币中国行”。",
+      "他曾经对大家说：“以前60、70后把3000一平米的房子，以3万价格卖给我们。以后我要把现在3000一个的比特币，以10万美金的价格卖给你们！”",
+      "随后，比特币价格一路飙升。",
+      "他又对大家说：“比特币以后一定会100万美金一个，否则我吃屎给你们看！”",
+      "他说：“你们一定要给自己的孩子买一个比特币。”"
+    ]
+  },
+  "homePage": {
+    "overlay": "仅需 1 WLD永久获得专属于您的韭菜庄园",
+    "purchaseSuccess": "购买成功！正在刷新庄园信息...",
+    "purchaseButton": "购买韭菜庄园 (1 WLD)",
+    "purchasing": "购买中...",
+    "enter": "进入庄园",
+    "refreshButton": "刷新状态",
+    "loading": "加载中...",
+    "introBullet1": "韭菜庄园是一个基于区块链的数字资产管理平台，为您提供安全、可靠的资产存储和继承服务。",
+    "introBullet2": "通过智能合约技术，实现资产的安全传承和长期储蓄，让您的数字财富得到最好的保护。",
+    "viewDetails": "查看详细介绍"
+  },
+  "manorIntro": {
+    "title": "韭菜庄园详细介绍",
+    "tabs": {
+      "usage": "使用说明",
+      "contract": "合约条款"
+    },
+    "usageContent": "# 韭菜庄园产品说明\n\n## 1. 产品概述\n\n韭菜庄园是一个基于区块链技术的数字资产传承平台，专为长期持有者设计。该平台提供安全的数字财富存储服务，并支持智能化的家族财富传承功能。\n\n## 2. 核心功能\n\n### 2.1 强制储蓄机制\n通过设定锁定期限，帮助用户建立长期投资纪律，有效避免短期市场波动带来的情绪化交易。\n\n### 2.2 财富传承保障\n建立完善的数字资产继承机制，确保资产能够按照预设规则安全传递给指定继承人，有效防范意外风险导致的资产损失。\n\n### 2.3 多重继承管理\n支持设置多位继承人，提供灵活的家族财富分配方案，确保资产传承的有序性和可控性。\n\n### 2.4 去中心化架构\n基于区块链智能合约技术，实现完全去中心化的资产管理，无需依赖第三方机构，确保资产安全性和透明度。\n\n## 3. 适用场景\n\n### 3.1 长期投资规划\n适合希望建立强制持有机制的投资者，有效避免频繁交易对投资收益的负面影响。\n\n### 3.2 家族财富传承\n为有数字资产传承需求的家庭提供专业解决方案，确保家族财富的有序传递。\n\n### 3.3 退休财务规划\n为个人退休规划提供数字财富储备工具，帮助建立长期财务安全保障。\n\n### 3.4 投资组合优化\n作为投资组合的重要组成部分，提供风险分散和长期价值保值功能。\n\n## 4. 费用结构\n\n**庄园使用权**：1 WLD（一次性购买，永久使用权限）\n\n**紧急修改服务**：2 WLD（用于紧急情况下的继承人信息修改）",
+    "contractContent": "# 韭菜庄园使用条款与操作规则\n\n## 1. 使用资格与权限\n\n### 1.1 资格获取\n用户需支付 1 WLD 获得庄园使用权，该权限为一次性购买，永久有效。\n\n### 1.2 权限特性\n庄园使用资格具有个人专属性，不可转让或共享给其他用户。\n\n## 2. 资产存入与锁定机制\n\n### 2.1 首次存入规则\n- 用户首次存入 WBTC 时必须设定锁定期限\n- 锁定期内资产无法提取或转移\n- 锁定期限一经设定不可修改\n\n### 2.2 追加存入政策\n- 后续存入的资产将自动适用首次设定的到期时间\n- 所有资产共享统一的锁定周期\n\n### 2.3 周期管理\n- 锁定期满后必须全额提取所有资产\n- 新的锁定周期需要重新设定期限\n\n## 3. 继承人管理制度\n\n### 3.1 继承人设置限制\n- 最多可设置 10 位继承人\n- 继承人必须拥有有效的韭菜庄园账户\n- 继承人列表按优先级排序\n\n### 3.2 修改规则\n- 常规修改：每次修改继承人信息需间隔 30 天\n- 紧急修改：支付 2 WLD 可立即执行修改操作\n\n## 4. 活跃度监控系统\n\n### 4.1 活跃度刷新操作\n以下操作将刷新用户活跃时间：\n- 资金存入操作（包括零金额存入）\n- 继承人信息修改\n- 其他影响庄园状态的操作\n\n### 4.2 活跃度规则\n- 仅庄园所有者可刷新自身活跃时间\n- 他人无法代为执行活跃度操作\n- 超过 365 天未活跃将被系统标记为不活跃状态\n\n## 5. 资金提取机制\n\n### 5.1 提取前置条件\n资产必须达到预设锁定期限方可执行提取操作。\n\n### 5.2 提取权限层级\n\n**第一优先级**：庄园所有者处于活跃状态时，仅所有者可提取资金\n\n**第二优先级**：所有者不活跃时，第一位活跃继承人可提取全部资金\n\n**第三优先级**：所有者及继承人均不活跃时，兜底地址（如公益组织）可提取资金\n\n**第四优先级**：所有相关方均不活跃时，资金暂时锁定直至有人重新激活\n\n### 5.3 提取方式\n系统仅支持一次性全额提取，不支持部分提取功能。\n\n## 6. 继承期间特殊权限\n\n### 6.1 权限范围\n当继承人因所有者不活跃而获得资金提取权时，该继承人同时获得有限的管理权限。\n\n### 6.2 管理权限细则\n- 可新增或删除排序位于自己之后的继承人\n- 无权修改自己及排序靠前的继承人信息\n- 修改操作同样受 30 天间隔限制\n- 可支付费用执行紧急修改"
+  },
+  "depositDrawer": {
+    "title": "存入WBTC到庄园",
+    "balanceWarning": "余额不足",
+    "inputPrompt": "输入存入WBTC数量",
+    "currentBalance": "当前拥有：{{amount}} WBTC",
+    "firstDepositHint": "首次存入需要设置锁定时间",
+    "durations": {
+      "oneDay": "1天",
+      "oneMonth": "1月",
+      "oneYear": "1年",
+      "fiveYears": "5年",
+      "tenYears": "10年",
+      "custom": "自定义"
+    },
+    "custom": {
+      "label": "输入时间",
+      "unitDay": "天",
+      "unitYear": "年"
+    },
+    "feedback": {
+      "pending": "存入中...",
+      "success": "存入成功！",
+      "failed": "存入失败"
+    },
+    "confirm": "确认存入"
+  },
+  "manorDetail": {
+    "fallbackTitle": "无法获取庄园信息",
+    "title": "我的庄园",
+    "instructionsPrefix": "查看并管理您的庄园，如有任何疑问请",
+    "instructionsSuffix": "",
+    "section": {
+      "basicInfo": "基础信息",
+      "myHeirs": "我的继承人",
+      "inheritedManors": "我作为继承人的庄园"
+    },
+    "description": {
+      "asset": "比特币资产"
+    },
+    "labels": {
+      "unlockTime": "锁定到期时间",
+      "lastActive": "上次活跃时间"
+    },
+    "actions": {
+      "withdrawing": "取钱中...",
+      "withdraw": "取",
+      "deposit": "存",
+      "refreshActivityInProgress": "更新中...",
+      "refreshActivity": "更新活跃",
+      "setHeirsInProgress": "设置中...",
+      "setHeirs": "设置继承人",
+      "enterManor": "进入庄园"
+    },
+    "empty": {
+      "heirs": "暂无继承人",
+      "inherited": "您还不是任何庄园的继承人"
+    },
+    "toast": {
+      "enterUpcomingFeature": "进入{{name}}功能待实现"
+    },
+    "result": {
+      "depositSuccessTitle": "存入成功！",
+      "depositSuccessDescription": "已成功存入 {{amount}} WBTC",
+      "withdrawSuccessTitle": "取钱成功！",
+      "withdrawSuccessDescription": "已成功取出 {{amount}} WBTC",
+      "withdrawFailedTitle": "取钱失败",
+      "activitySuccessTitle": "活跃度更新成功！",
+      "activitySuccessDescription": "您的庄园活跃时间已更新",
+      "activityFailedTitle": "活跃度更新失败"
+    },
+    "dialogs": {
+      "setHeirsPrompt": "请输入继承人地址（多个地址用逗号分隔):",
+      "setHeirsFeeConfirm": "修改继承人需要支付 {{fee}} WLD 手续费。\n\n继续操作吗？"
+    },
+    "samples": {
+      "manorName": "测试庄园",
+      "inheritedName": "庄园 {{index}}"
+    }
+  }
 }

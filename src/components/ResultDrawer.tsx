@@ -66,7 +66,7 @@ const ResultDrawer: React.FC<ResultDrawerProps> = ({
                             fullWidth={true}
                             onClick={onButtonClick || onClose}
                         >
-                            {buttonText || t("back")}
+                            {buttonText || t("common.confirm")}
                         </Button>
                     </div>
                 </div>

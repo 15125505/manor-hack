@@ -1,5 +1,6 @@
-import { create } from 'zustand';
-import { getChain } from '../utils/tool';
+import { create } from "zustand";
+import { getChain } from "../utils/tool";
+import i18n from "../i18n";
 
 interface ManorState {
     // 购买相关状态
@@ -20,7 +21,7 @@ export const useManorStore = create<ManorState>((set) => ({
     purchaseManorAccess: async () => {
         const chain = getChain();
         if (!chain) {
-            set({ purchaseError: "钱包环境不可用" });
+            set({ purchaseError: i18n.t("errors.walletUnavailable") });
             return false;
         }
 
@@ -32,9 +33,10 @@ export const useManorStore = create<ManorState>((set) => ({
             return true;
         } catch (error) {
             console.error("购买庄园访问权限失败:", error);
-            set({ 
-                purchaseError: `购买失败: ${error}`,
-                isPurchasing: false 
+            const message = error instanceof Error ? error.message : String(error);
+            set({
+                purchaseError: i18n.t("errors.purchaseFailed", { error: message }),
+                isPurchasing: false,
             });
             return false;
         }

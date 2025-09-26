@@ -1,56 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Button, Typography } from "@worldcoin/mini-apps-ui-kit-react";
 import { ArrowLeft, ArrowRight } from "iconoir-react";
+import { useTranslation } from "react-i18next";
 
 interface StoryGuidePageProps {
     onComplete: () => void;
 }
+
+const STORY_IMAGES = [
+    "/sell_beef.jpg",
+    "/found_btc.jpg",
+    "/mine_btc.jpg",
+    "/ban_mining.jpg",
+    "/btc_china_trip.jpg",
+    "/say.jpg",
+    "/btc_rise.jpg",
+    "/say.jpg",
+    "/family.jpg",
+];
 
 interface Story {
     content: string;
     image: string;
 }
 
-const stories: Story[] = [
-    {
-        content: "从前，有个卖牛肉的人。",
-        image: "/sell_beef.jpg",
-    },
-    {
-        content: "有一天，他发现了比特币这个金矿。",
-        image: "/found_btc.jpg",
-    },
-    {
-        content: "随后，他创建了中国内蒙最大的比特币矿场。",
-        image: "/mine_btc.jpg",
-    },
-    {
-        content: "不幸的是，中国政府一纸禁令，矿场被迫关闭。",
-        image: "/ban_mining.jpg",
-    },
-    {
-        content: "他开着车在全中国宣传比特币，俗称“比特币中国行”。",
-        image: "/btc_china_trip.jpg",
-    },
-    {
-        content: "他曾经对大家说：“以前60、70后把3000一平米的房子，以3万价格卖给我们。以后我要把现在3000一个的比特币，以10万美金的价格卖给你们！”",
-        image: "/say.jpg",
-    },
-    {
-        content: "随后，比特币价格一路飙升。",
-        image: "/btc_rise.jpg",
-    },
-    {
-        content: "他又对大家说：“比特币以后一定会100万美金一个，否则我吃屎给你们看！”",
-        image: "/say.jpg",
-    },
-    {
-        content: "他说：“你们一定要给自己的孩子买一个比特币。”",
-        image: "/family.jpg",
-    }
-];
-
 const StoryGuidePage: React.FC<StoryGuidePageProps> = ({ onComplete }) => {
+    const { t } = useTranslation();
+    const storyTexts = useMemo(
+        () => t("storyGuide.stories", { returnObjects: true }) as string[],
+        [t],
+    );
+    const stories = useMemo<Story[]>(
+        () => STORY_IMAGES.map((image, index) => ({ content: storyTexts[index] ?? "", image })),
+        [storyTexts],
+    );
     const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
     const [imageLoaded, setImageLoaded] = useState<Record<number, boolean>>({});
     const currentStory = stories[currentStoryIndex];
@@ -76,7 +59,7 @@ const StoryGuidePage: React.FC<StoryGuidePageProps> = ({ onComplete }) => {
             await Promise.all(imagePromises);
         };
         preloadImages().catch(console.error);
-    }, []);
+    }, [stories]);
 
     const handleNext = () => {
         if (isLastStory) {
@@ -113,7 +96,7 @@ const StoryGuidePage: React.FC<StoryGuidePageProps> = ({ onComplete }) => {
                     </div>
                 </div>
                 <Button variant="secondary" size="sm" onClick={handleSkip} className="ml-4 text-gray-600">
-                    跳过
+                    {t("storyGuide.skip")}
                 </Button>
             </div>
 
@@ -131,7 +114,7 @@ const StoryGuidePage: React.FC<StoryGuidePageProps> = ({ onComplete }) => {
                         >
                             <img
                                 src={currentStory.image}
-                                alt="韭菜庄园"
+                                alt={t("storyGuide.alt")}
                                 className="w-full h-full object-cover rounded-lg"
                             />
                         </div>
@@ -171,7 +154,7 @@ const StoryGuidePage: React.FC<StoryGuidePageProps> = ({ onComplete }) => {
                     className="flex items-center gap-2"
                 >
                     <ArrowLeft className="w-4 h-4" />
-                    上一个
+                    {t("storyGuide.previous")}
                 </Button>
 
                 <div className="flex items-center gap-2 text-gray-500">
@@ -181,7 +164,7 @@ const StoryGuidePage: React.FC<StoryGuidePageProps> = ({ onComplete }) => {
                 </div>
 
                 <Button variant="primary" size="sm" onClick={handleNext} className="flex items-center gap-2">
-                    {isLastStory ? "步入新的开始" : "下一个"}
+                    {isLastStory ? t("storyGuide.finish") : t("storyGuide.next")}
                     {!isLastStory && <ArrowRight className="w-4 h-4" />}
                 </Button>
             </div>

@@ -13,6 +13,7 @@
  *   - 测试锁定资金: unlockTime = Math.floor(Date.now()/1000) + 7200
  */
 import { ChainBase, type ManorInfo, type UserToken, type TransactionResult } from "./chainBase";
+import i18n from "../../i18n";
 
 class ChainMock extends ChainBase {
     // === 测试控制开关 - 修改这些值来控制测试行为 ===
@@ -21,7 +22,7 @@ class ChainMock extends ChainBase {
     private shouldSucceed = true;           // true=成功, false=失败
     private shouldUserReject = false;       // true=用户拒绝交易
     private delayMs = 100;                 // 延迟时间（毫秒）
-    private errorMessage = "网络连接失败"; // 失败时的错误信息
+    private errorMessage = i18n.t("errors.networkFailure"); // 失败时的错误信息
 
     // 用户数据（修改这些来测试不同状态）
     private userAddress = "0x1234567890123456789012345678901234567890";
@@ -37,7 +38,7 @@ class ChainMock extends ChainBase {
         "0x1111111111111111111111111111111111111111",
         "0x2222222222222222222222222222222222222222"
     ];
-    private manorName = "测试庄园"; // 模拟庄园名称
+    private manorName = i18n.t("manorDetail.samples.manorName"); // 模拟庄园名称
 
     constructor() {
         super();

@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
-import { Button, Typography, useToast, LiveFeedback } from '@worldcoin/mini-apps-ui-kit-react';
-import { useUserStore } from '../../stores/userStore';
+import React, { useEffect } from "react";
+import { Button, Typography, useToast, LiveFeedback } from "@worldcoin/mini-apps-ui-kit-react";
+import { useUserStore } from "../../stores/userStore";
+import { useTranslation } from "react-i18next";
 
 interface LoginPageProps {
     onLoginSuccess: () => void;
@@ -8,6 +9,7 @@ interface LoginPageProps {
 
 const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
     const { toast } = useToast();
+    const { t } = useTranslation();
     const {
         isLoading,
         error,
@@ -41,7 +43,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
             await login();
         } catch (error) {
             toast.error({
-                title: error instanceof Error ? error.message : 'Unknown error'
+                title: error instanceof Error ? error.message : t("errors.unknown")
             });
         }
     };
@@ -53,7 +55,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                 <div className="relative">
                     <img
                         src="/door.jpg"
-                        alt="韭菜庄园"
+                        alt={t("auth.alt")}
                         style={{ width: 'calc(90vw)', aspectRatio: '3/2' }}
                     />
                     <div
@@ -68,7 +70,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                             transform: 'translate(-50%, -50%)'
                         }}
                     >
-                        欢迎来到<br/>韭菜庄园
+                        {t("auth.overlayLine1")}
+                        <br />
+                        {t("auth.overlayLine2")}
                     </div>
                 </div>
             </div>
@@ -76,7 +80,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
             {/* 主要问候语 */}
             <div className="text-center mb-16">
                 <Typography variant="heading" level={1} >
-                    韭菜你又来了！
+                    {t("auth.headline")}
                 </Typography>
             </div>
 
@@ -86,9 +90,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                     className="w-full"
                     state={loadingState}
                     label={{
-                        pending: "稍等，正在为你准备庄园...",
-                        success: "欢迎回家！",
-                        failed: "登录出错了",
+                        pending: t("auth.feedback.pending"),
+                        success: t("auth.feedback.success"),
+                        failed: t("auth.feedback.failed"),
                     }}
                 >
                     <Button
@@ -97,7 +101,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                         onClick={handleLogin}
                         className="py-4 text-lg font-semibold"
                     >
-                        既然来了，别怕再被割一次
+                        {t("auth.button")}
                     </Button>
                 </LiveFeedback>
             </div>

@@ -4,6 +4,7 @@ import { ChainBase, type ManorInfo, type UserToken, type TransactionResult } fro
 import ScallionManorAbi from "../../abi/ScallionManor.json";
 import { gData } from "../data";
 import { createPublicClient, http, formatUnits, parseUnits } from "viem";
+import i18n from "../../i18n";
 import { worldchain } from "viem/chains";
 import { readContract } from "viem/actions";
 
@@ -355,7 +356,7 @@ class ZWorld extends ChainBase {
         const { transaction_id, mini_app_id } = res.finalPayload;
         if (!transaction_id || !mini_app_id) {
             gServer.error("交易ID获取失败", res);
-            throw new Error("无法获取交易ID");
+            throw new Error(i18n.t("errors.transactionIdMissing"));
         }
 
         // 直接返回交易ID，不等待区块确认

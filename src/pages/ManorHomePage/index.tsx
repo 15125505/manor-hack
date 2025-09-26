@@ -12,9 +12,11 @@ import { useUserStore } from "../../stores/userStore";
 import { useManorStore } from "../../stores/manorStore";
 import ManorIntro from "../../components/Manor/ManorIntro";
 import ManorDetailPage from "../ManorDetailPage";
+import { useTranslation } from "react-i18next";
 
 const ManorHomePage: React.FC = () => {
     const { toast } = useToast();
+    const { t } = useTranslation();
     const [isAnimating, setIsAnimating] = useState(false);
     const [showDetailPage, setShowDetailPage] = useState(false);
     const [showDetailDrawer, setShowDetailDrawer] = useState(false);
@@ -61,7 +63,7 @@ const ManorHomePage: React.FC = () => {
         const success = await purchaseManorAccess();
         if (success) {
             toast.success({
-                title: "购买成功！正在刷新庄园信息...",
+                title: t("homePage.purchaseSuccess"),
             });
             // 购买成功后刷新庄园信息
             await fetchManorInfo();
@@ -103,7 +105,7 @@ const ManorHomePage: React.FC = () => {
                                     level={2}
                                     className="text-center text-white"
                                 >
-                                    仅需 1 WLD永久获得专属于您的韭菜庄园
+                                    {t("homePage.overlay")}
                                 </Typography>
                             </div>
                         </>
@@ -121,7 +123,9 @@ const ManorHomePage: React.FC = () => {
                         disabled={isPurchasing}
                         fullWidth
                     >
-                        {isPurchasing ? "购买中..." : "购买韭菜庄园 (1 WLD)"}
+                        {isPurchasing
+                            ? t("homePage.purchasing")
+                            : t("homePage.purchaseButton")}
                     </Button>
                 ) : manorInfo && manorInfo.hasAccess ? (
                     <Button
@@ -131,7 +135,7 @@ const ManorHomePage: React.FC = () => {
                         disabled={isAnimating}
                         fullWidth
                     >
-                        进入庄园
+                        {t("homePage.enter")}
                     </Button>
                 ) : (
                     <Button
@@ -141,7 +145,7 @@ const ManorHomePage: React.FC = () => {
                         disabled={isLoading}
                         fullWidth
                     >
-                        {isLoading ? "加载中..." : "刷新状态"}
+                        {isLoading ? t("homePage.loading") : t("homePage.refreshButton")}
                     </Button>
                 )}
             </div>
@@ -158,11 +162,7 @@ const ManorHomePage: React.FC = () => {
                                     </CircularIcon>
                                 }
                             >
-                                <span
-                                    dangerouslySetInnerHTML={{
-                                        __html: "韭菜庄园是一个基于区块链的数字资产管理平台，为您提供安全、可靠的资产存储和继承服务。",
-                                    }}
-                                />
+                                <span>{t("homePage.introBullet1")}</span>
                             </BulletListItem>
 
                             <BulletListItem
@@ -172,11 +172,7 @@ const ManorHomePage: React.FC = () => {
                                     </CircularIcon>
                                 }
                             >
-                                <span
-                                    dangerouslySetInnerHTML={{
-                                        __html: "通过智能合约技术，实现资产的安全传承和长期储蓄，让您的数字财富得到最好的保护。",
-                                    }}
-                                />
+                                <span>{t("homePage.introBullet2")}</span>
                             </BulletListItem>
                         </BulletList>
 
@@ -186,7 +182,7 @@ const ManorHomePage: React.FC = () => {
                             onClick={() => setShowDetailDrawer(true)}
                             className="w-full border-green-200 text-green-700 hover:bg-green-50"
                         >
-                            查看详细介绍
+                            {t("homePage.viewDetails")}
                         </Button>
                     </div>
                 </div>

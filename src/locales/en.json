@@ -11,5 +11,159 @@
   "loginSuccess": "Login successful",
   "loginFailed": "Login failed",
   "homeTab": "Home",
-  "mineTab": "Mine"
+  "mineTab": "Mine",
+  "common": {
+    "back": "Back",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "loading": "Loading...",
+    "refreshing": "Refreshing...",
+    "reload": "Reload",
+    "refresh": "Refresh",
+    "viewGuide": "View usage guide",
+    "noFunds": "No funds deposited"
+  },
+  "errors": {
+    "walletUnavailable": "Wallet environment is unavailable",
+    "loginFailed": "Login failed: {{error}}",
+    "fetchUserFailed": "Failed to fetch user data: {{error}}",
+    "purchaseFailed": "Purchase failed: {{error}}",
+    "unknown": "Unknown error",
+    "setHeirsFailed": "Failed to set inheritors: {{error}}",
+    "transactionIdMissing": "Unable to retrieve transaction ID",
+    "metaMaskRequired": "Please install MetaMask or another Ethereum wallet extension first",
+    "networkFailure": "Network connection failed"
+  },
+  "auth": {
+    "alt": "Scallion Manor",
+    "overlayLine1": "Welcome to",
+    "overlayLine2": "Scallion Manor",
+    "headline": "You're back again, scallion friend!",
+    "feedback": {
+      "pending": "Hang tight, preparing your manor...",
+      "success": "Welcome home!",
+      "failed": "Login failed"
+    },
+    "button": "Since you're here, don't fear another harvest"
+  },
+  "storyGuide": {
+    "alt": "Scallion Manor",
+    "skip": "Skip",
+    "previous": "Previous",
+    "next": "Next",
+    "finish": "Step into a new beginning",
+    "stories": [
+      "Once upon a time, there was a man who sold beef.",
+      "One day, he discovered the goldmine called Bitcoin.",
+      "He then built the largest Bitcoin mining farm in Inner Mongolia, China.",
+      "Unfortunately, a government ban forced the farm to shut down.",
+      "He drove across China preaching Bitcoin, a trip nicknamed \"Bitcoin China Tour.\"",
+      "He would say, \"People born in the 60s and 70s bought homes for ¥3,000 per square meter and sold them to us for ¥30,000. One day I'll sell you today's ¥3,000 Bitcoin for $100,000!\"",
+      "Soon after, Bitcoin's price skyrocketed.",
+      "He added, \"Bitcoin will definitely hit $1,000,000 someday. If not, I'll eat shit in front of you!\"",
+      "He insisted, \"Make sure your children each own one Bitcoin.\""
+    ]
+  }
+  ,
+  "homePage": {
+    "overlay": "Just 1 WLD for lifetime access to your personal Scallion Manor",
+    "purchaseSuccess": "Purchase successful! Refreshing manor info...",
+    "purchaseButton": "Buy Scallion Manor (1 WLD)",
+    "purchasing": "Purchasing...",
+    "enter": "Enter manor",
+    "refreshButton": "Refresh status",
+    "loading": "Loading...",
+    "introBullet1": "Scallion Manor is a blockchain-based digital asset management platform that keeps your assets safe and inheritable.",
+    "introBullet2": "Smart contracts secure inheritance flows and long-term savings so your digital wealth stays protected.",
+    "viewDetails": "View detailed intro"
+  },
+  "manorIntro": {
+    "title": "Scallion Manor Overview",
+    "tabs": {
+      "usage": "Usage Guide",
+      "contract": "Terms"
+    },
+    "usageContent": "# Scallion Manor Product Guide\n\n## 1. Overview\n\nScallion Manor is a blockchain-powered digital asset inheritance platform designed for long-term holders. It offers secure storage for digital wealth and intelligent family inheritance workflows.\n\n## 2. Core Features\n\n### 2.1 Forced Saving Mechanism\nSet custom lock periods to build long-term investing discipline and avoid emotion-driven trades during short-term volatility.\n\n### 2.2 Inheritance Protection\nDefine trusted inheritors and handover rules so assets are transferred safely even in unexpected events.\n\n### 2.3 Multi-Heir Management\nSupport multiple inheritors with flexible prioritization to keep family distribution orderly and controllable.\n\n### 2.4 Decentralized Architecture\nSmart contracts remove third-party custodians, ensuring transparency and security.\n\n## 3. Ideal Use Cases\n\n### 3.1 Long-Term Investment Planning\nGreat for investors who want enforced holding periods to curb over-trading and protect returns.\n\n### 3.2 Family Wealth Succession\nProvides a dedicated solution for households planning digital asset inheritance.\n\n### 3.3 Retirement Planning\nActs as a long-term savings vault that strengthens retirement security.\n\n### 3.4 Portfolio Optimization\nAdds diversification and long-term value preservation to an investment mix.\n\n## 4. Pricing\n\n**Manor Access**: 1 WLD (one-time purchase, lifetime rights)\n\n**Emergency Update Service**: 2 WLD (fast-track inheritor changes in urgent situations)",
+    "contractContent": "# Scallion Manor Terms & Operating Rules\n\n## 1. Eligibility & Rights\n\n### 1.1 Access\nPay 1 WLD to unlock lifetime manor access.\n\n### 1.2 Non-transferable\nAccess is personal and cannot be transferred or shared.\n\n## 2. Deposits & Locking\n\n### 2.1 First Deposit\n- You must set a lock period with your first WBTC deposit\n- Funds cannot be withdrawn or moved during the lock\n- The lock duration cannot be edited later\n\n### 2.2 Additional Deposits\n- Later deposits inherit the original expiry\n- All funds share the same locking schedule\n\n### 2.3 Cycle Management\n- Withdraw everything once the lock expires\n- Set a new period for the next cycle\n\n## 3. Inheritor Management\n\n### 3.1 Limits\n- Up to 10 inheritors\n- Inheritors must have a valid Scallion Manor account\n- List order defines priority\n\n### 3.2 Changes\n- Standard updates require a 30-day cooldown\n- Pay 2 WLD to execute an emergency update\n\n## 4. Activity Monitoring\n\n### 4.1 Actions That Refresh Activity\n- Depositing funds (including zero-amount heartbeats)\n- Editing inheritors\n- Any operation that changes manor state\n\n### 4.2 Rules\n- Only the owner can refresh their own activity\n- No one else can act on your behalf\n- Inactivity over 365 days flags the manor as dormant\n\n## 5. Withdrawal Rules\n\n### 5.1 Preconditions\nFunds must reach the locked expiry before withdrawal.\n\n### 5.2 Priority Order\n\n**Level 1**: Active owner can withdraw everything.\n\n**Level 2**: If the owner is inactive, the first active inheritor may withdraw all assets.\n\n**Level 3**: If owner and inheritors are inactive, the fallback address (e.g., charity) may withdraw.\n\n**Level 4**: If nobody is active, funds remain locked until someone re-engages.\n\n### 5.3 Method\nWithdrawals are always full-balance; partial withdrawals are not supported.\n\n## 6. Special Rights During Succession\n\n### 6.1 Scope\nWhen an inheritor gains withdrawal rights because the owner is inactive, they receive limited management powers.\n\n### 6.2 Details\n- They may add or remove inheritors ranked after themselves\n- They cannot edit themselves or higher-priority entries\n- The 30-day cooldown still applies\n- Emergency edits remain available for a fee"
+  }
+  ,
+  "depositDrawer": {
+    "title": "Deposit WBTC into the manor",
+    "balanceWarning": "Insufficient balance",
+    "inputPrompt": "Enter deposit amount",
+    "currentBalance": "Balance: {{amount}} WBTC",
+    "firstDepositHint": "A locking period is required for the first deposit",
+    "durations": {
+      "oneDay": "1 day",
+      "oneMonth": "1 month",
+      "oneYear": "1 year",
+      "fiveYears": "5 years",
+      "tenYears": "10 years",
+      "custom": "Custom"
+    },
+    "custom": {
+      "label": "Enter duration",
+      "unitDay": "Days",
+      "unitYear": "Years"
+    },
+    "feedback": {
+      "pending": "Depositing...",
+      "success": "Deposit successful!",
+      "failed": "Deposit failed"
+    },
+    "confirm": "Confirm deposit"
+  },
+  "manorDetail": {
+    "fallbackTitle": "Unable to fetch manor information",
+    "title": "My manor",
+    "instructionsPrefix": "Review and manage your manor. If you have questions, please ",
+    "instructionsSuffix": ".",
+    "section": {
+      "basicInfo": "Basics",
+      "myHeirs": "My inheritors",
+      "inheritedManors": "Manors where I'm an inheritor"
+    },
+    "description": {
+      "asset": "Bitcoin assets"
+    },
+    "labels": {
+      "unlockTime": "Unlock time",
+      "lastActive": "Last active"
+    },
+    "actions": {
+      "withdrawing": "Withdrawing...",
+      "withdraw": "Withdraw",
+      "deposit": "Deposit",
+      "refreshActivityInProgress": "Updating...",
+      "refreshActivity": "Refresh activity",
+      "setHeirsInProgress": "Setting...",
+      "setHeirs": "Set inheritors",
+      "enterManor": "Enter manor"
+    },
+    "empty": {
+      "heirs": "No inheritors yet",
+      "inherited": "You are not an inheritor of any manor"
+    },
+    "toast": {
+      "enterUpcomingFeature": "Entering {{name}} is not implemented yet"
+    },
+    "result": {
+      "depositSuccessTitle": "Deposit successful!",
+      "depositSuccessDescription": "Deposited {{amount}} WBTC",
+      "withdrawSuccessTitle": "Withdrawal successful!",
+      "withdrawSuccessDescription": "Withdrew {{amount}} WBTC",
+      "withdrawFailedTitle": "Withdrawal failed",
+      "activitySuccessTitle": "Activity refreshed!",
+      "activitySuccessDescription": "Your manor activity timestamp has been refreshed",
+      "activityFailedTitle": "Activity refresh failed"
+    },
+    "dialogs": {
+      "setHeirsPrompt": "Enter inheritor addresses (comma separated):",
+      "setHeirsFeeConfirm": "Updating inheritors costs {{fee}} WLD.\n\nContinue?"
+    },
+    "samples": {
+      "manorName": "Sample Manor",
+      "inheritedName": "Manor {{index}}"
+    }
+  }
 }

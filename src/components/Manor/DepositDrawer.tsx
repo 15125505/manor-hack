@@ -8,11 +8,11 @@ import {
     Typography,
     LiveFeedback,
     Input,
-    Token
+    Token,
 } from "@worldcoin/mini-apps-ui-kit-react";
 import React, { useState } from "react";
 import { ReactFitty } from "react-fitty";
-// import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 interface DepositDrawerProps {
     open: boolean;
@@ -78,7 +78,7 @@ const DepositDrawer: React.FC<DepositDrawerProps> = ({
     loading,
     isFirstDeposit = true,
 }) => {
-    // const { t } = useTranslation();
+    const { t } = useTranslation();
     // 新增：首次存款相关状态
     const [period, setPeriod] = useState<string>("1d"); // 1d, 1m, 1y, 5y, 10y, custom
     const [customNum, setCustomNum] = useState<string>("");
@@ -89,7 +89,7 @@ const DepositDrawer: React.FC<DepositDrawerProps> = ({
             <DrawerContent className="p-6 flex flex-col h-[100vh]">
                 <DrawerHeader>
                     <DrawerTitle className="text-2xl font-bold">
-                        存入WBTC到庄园
+                        {t("depositDrawer.title")}
                     </DrawerTitle>
                 </DrawerHeader>
                 {/* 金额显示区 */}
@@ -121,11 +121,13 @@ const DepositDrawer: React.FC<DepositDrawerProps> = ({
                             {depositAmount &&
                             wbtcBalance !== null &&
                             Number(depositAmount) > wbtcBalance
-                                ? "余额不足"
-                                : "输入存入WBTC数量"}
+                                ? t("depositDrawer.balanceWarning")
+                                : t("depositDrawer.inputPrompt")}
                         </Typography>
                         <Typography variant="body" level={3} className="text-gray-500 mt-1">
-                            当前拥有：{wbtcBalance?.toFixed(8) ?? "0.00000000"} WBTC
+                            {t("depositDrawer.currentBalance", {
+                                amount: (wbtcBalance ?? 0).toFixed(8),
+                            })}
                         </Typography>
                     </div>
                     <NumberPad
@@ -137,7 +139,7 @@ const DepositDrawer: React.FC<DepositDrawerProps> = ({
                         <div className="w-full border border-gray-200 rounded-xl p-4 mt-0 shadow">
                             {/* 提示文字 */}
                             <Typography className="text-gray-500 text-sm max-w-full text-left">
-                                首次存入需要设置锁定时间
+                                {t("depositDrawer.firstDepositHint")}
                             </Typography>
                             {/* 存款时间选项，两行三列 */}
                             <div className="w-full flex flex-col gap-2 mt-4">
@@ -152,7 +154,7 @@ const DepositDrawer: React.FC<DepositDrawerProps> = ({
                                         }
                                         onClick={() => setPeriod("1d")}
                                     >
-                                        1天
+                                        {t("depositDrawer.durations.oneDay")}
                                     </Button>
                                     <Button
                                         size="sm"
@@ -164,7 +166,7 @@ const DepositDrawer: React.FC<DepositDrawerProps> = ({
                                         }
                                         onClick={() => setPeriod("1m")}
                                     >
-                                        1月
+                                        {t("depositDrawer.durations.oneMonth")}
                                     </Button>
                                     <Button
                                         size="sm"
@@ -176,7 +178,7 @@ const DepositDrawer: React.FC<DepositDrawerProps> = ({
                                         }
                                         onClick={() => setPeriod("1y")}
                                     >
-                                        1年
+                                        {t("depositDrawer.durations.oneYear")}
                                     </Button>
                                 </div>
                                 <div className="flex w-full justify-around mt-2 gap-x-2">
@@ -190,7 +192,7 @@ const DepositDrawer: React.FC<DepositDrawerProps> = ({
                                         }
                                         onClick={() => setPeriod("5y")}
                                     >
-                                        5年
+                                        {t("depositDrawer.durations.fiveYears")}
                                     </Button>
                                     <Button
                                         size="sm"
@@ -202,7 +204,7 @@ const DepositDrawer: React.FC<DepositDrawerProps> = ({
                                         }
                                         onClick={() => setPeriod("10y")}
                                     >
-                                        10年
+                                        {t("depositDrawer.durations.tenYears")}
                                     </Button>
                                     <Button
                                         size="sm"
@@ -214,7 +216,7 @@ const DepositDrawer: React.FC<DepositDrawerProps> = ({
                                         }
                                         onClick={() => setPeriod("custom")}
                                     >
-                                        自定义
+                                        {t("depositDrawer.durations.custom")}
                                     </Button>
                                 </div>
                             </div>
@@ -256,10 +258,10 @@ const DepositDrawer: React.FC<DepositDrawerProps> = ({
                                                 /[^\d]/g,
                                                 "",
                                             ),
-                                        );
+                                            );
                                         setCustomNumError(false);
                                     }}
-                                    label="输入时间"
+                                    label={t("depositDrawer.custom.label")}
                                     error={customNumError}
                                 />
                                 <div className="flex flex-1 gap-1">
@@ -273,7 +275,7 @@ const DepositDrawer: React.FC<DepositDrawerProps> = ({
                                         }
                                         onClick={() => setCustomUnit("d")}
                                     >
-                                        天
+                                        {t("depositDrawer.custom.unitDay")}
                                     </Button>
                                     <Button
                                         size="sm"
@@ -285,7 +287,7 @@ const DepositDrawer: React.FC<DepositDrawerProps> = ({
                                         }
                                         onClick={() => setCustomUnit("y")}
                                     >
-                                        年
+                                        {t("depositDrawer.custom.unitYear")}
                                     </Button>
                                 </div>
                             </div>
@@ -297,9 +299,9 @@ const DepositDrawer: React.FC<DepositDrawerProps> = ({
                     className="w-full flex-shrink-0"
                     state={loading}
                     label={{
-                        pending: "存入中...",
-                        success: "存入成功！",
-                        failed: "存入失败",
+                        pending: t("depositDrawer.feedback.pending"),
+                        success: t("depositDrawer.feedback.success"),
+                        failed: t("depositDrawer.feedback.failed"),
                     }}
                 >
                     <Button
@@ -332,7 +334,7 @@ const DepositDrawer: React.FC<DepositDrawerProps> = ({
                                 Number(depositAmount) > Number(wbtcBalance))
                         }
                     >
-                        确认存入
+                        {t("depositDrawer.confirm")}
                     </Button>
                 </LiveFeedback>
             </DrawerContent>

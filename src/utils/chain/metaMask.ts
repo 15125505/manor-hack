@@ -13,6 +13,7 @@ import { readContract } from "viem/actions";
 import { ChainBase, type ManorInfo, type UserToken, type TransactionResult } from "./chainBase";
 import { SignatureTransfer } from "@uniswap/permit2-sdk";
 import ScallionManorAbi from "../../abi/ScallionManor.json";
+import i18n from "../../i18n";
 
 const publicClient = createPublicClient({
     chain: worldchain,
@@ -409,7 +410,7 @@ class ZMetaMask extends ChainBase {
     // 私有方法：获取钱包客户端
     private get client() {
         if (!this.ethereum) {
-            throw new Error("请先安装MetaMask等以太坊钱包插件");
+            throw new Error(i18n.t("errors.metaMaskRequired"));
         }
         if (!this._client) {
             this._client = createWalletClient({

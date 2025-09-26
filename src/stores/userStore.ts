@@ -3,6 +3,9 @@ import { getChain } from "../utils/tool";
 import { gData } from "../utils/data";
 import type { ManorInfo, UserToken } from "../utils/chain/chainBase";
 import { gServer } from "../utils/server.ts";
+import i18n from "../i18n";
+
+const formatError = (error: unknown) => (error instanceof Error ? error.message : String(error));
 
 interface PendingTransaction {
     transaction_id: string;
@@ -53,7 +56,7 @@ export const useUserStore = create<UserState>((set, get) => ({
     login: async () => {
         const chain = getChain();
         if (!chain) {
-            set({ error: "钱包环境不可用" });
+            set({ error: i18n.t("errors.walletUnavailable") });
             return;
         }
 
@@ -89,7 +92,7 @@ export const useUserStore = create<UserState>((set, get) => ({
         } catch (error) {
             console.error("👤登录失败:", error);
             set({
-                error: `登录失败: ${error}`,
+                error: i18n.t("errors.loginFailed", { error: formatError(error) }),
                 isLoading: false,
             });
         }
@@ -123,7 +126,7 @@ export const useUserStore = create<UserState>((set, get) => ({
 
         const chain = getChain();
         if (!chain) {
-            set({ error: "钱包环境不可用" });
+            set({ error: i18n.t("errors.walletUnavailable") });
             return;
         }
 
@@ -147,7 +150,7 @@ export const useUserStore = create<UserState>((set, get) => ({
         } catch (error) {
             gServer.error("👤获取用户数据失败:", error);
             set({
-                error: `获取用户数据失败: ${error}`,
+                error: i18n.t("errors.fetchUserFailed", { error: formatError(error) }),
                 isLoading: false,
             });
         }
