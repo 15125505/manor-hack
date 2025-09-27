@@ -29,7 +29,7 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
     currentName,
     onSuccess,
     onError,
-    disabled = false,
+    disabled = false
 }) => {
     const { t } = useTranslation();
     const { setPendingTransaction } = useUserStore();
@@ -58,7 +58,6 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
 
     const handleClose = () => {
         if (renameLoading) return;
-        // 先清理状态，再关闭抽屉，确保动画流畅
         setRenameError(null);
         onClose();
     };
@@ -99,7 +98,7 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
                 transaction_id,
                 mini_app_id,
                 timestamp: Date.now(),
-                functionName: "renameManor",
+                functionName: "renameManor"
             });
 
             onSuccess(trimmed);
@@ -120,18 +119,21 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
 
     return (
         <Drawer open={open} direction="bottom" onClose={handleClose}>
-            <DrawerContent className="p-6 flex flex-col h-[100vh]">
-                {/* 顶部固定区域 - 标题和表单 */}
-                <div className="flex-shrink-0 pb-4">
+            <DrawerContent className="flex flex-col h-[100vh] p-6">
+                {/* 顶部内容区域 - 自然增长 */}
+                <div className="flex-1">
                     <DrawerHeader>
-                        <DrawerTitle className="text-2xl font-bold">{t("manorDetail.renameDrawer.title")}</DrawerTitle>
+                        <DrawerTitle className="text-2xl font-bold">
+                            {t("manorDetail.renameDrawer.title")}
+                        </DrawerTitle>
                     </DrawerHeader>
-                    <div className="flex flex-col gap-4 pt-4">
+
+                    <div className="flex flex-col gap-4 mt-4">
                         <Typography variant="body" level={2} className="text-gray-500">
                             {t("manorDetail.renameDrawer.description")}
                         </Typography>
+
                         <Input
-                            autoFocus
                             maxLength={25}
                             label={t("manorDetail.renameDrawer.inputLabel")}
                             value={renameValue}
@@ -140,9 +142,11 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
                             }}
                             error={Boolean(renameError)}
                         />
+
                         <Typography variant="body" level={3} className="text-xs text-gray-400">
                             {t("manorDetail.renameDrawer.helper")}
                         </Typography>
+
                         {renameError && (
                             <Typography variant="body" level={3} className="text-xs text-red-500">
                                 {renameError}
@@ -151,11 +155,8 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
                     </div>
                 </div>
 
-                {/* 中间可扩展区域 */}
-                <div className="flex-1"></div>
-
-                {/* 底部固定按钮区域 - 会被键盘向上推 */}
-                <div className="flex-shrink-0 py-8 bg-white border-gray-100">
+                {/* 底部按钮区域 - 在正常文档流中 */}
+                <div className="pt-6">
                     <Button
                         variant="primary"
                         size="lg"
@@ -167,7 +168,6 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
                             Boolean(renameError) ||
                             renameValue.trim() === (currentName?.trim() ?? "")
                         }
-                        className="transition-all duration-200"
                     >
                         {renameLoading ? t("manorDetail.actions.renaming") : t("manorDetail.renameDrawer.confirm")}
                     </Button>
