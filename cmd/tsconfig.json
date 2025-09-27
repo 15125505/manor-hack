@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": true,
+        "module": "CommonJS",
+        "target": "es6",
+        "allowJs": true,
+        "esModuleInterop": true,
+        "noEmit": false,
+        "types": ["vue"]
+    },
+    "ts-node": {
+        "files": true
+    },
+    "include": ["./**/*.ts"]
+}

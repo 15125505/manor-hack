@@ -1,0 +1,15 @@
+{
+  "welcome": "欢迎来到Manor",
+  "login": "登录",
+  "logout": "退出登录",
+  "pleaseInstallWallet": "请安装钱包",
+  "currentBalance": "当前余额",
+  "welcomeToManor": "欢迎来到Manor - 您的数字资产中心",
+  "refresh": "刷新",
+  "myProfile": "我的资料",
+  "loginLoading": "登录中...",
+  "loginSuccess": "登录成功",
+  "loginFailed": "登录失败",
+  "homeTab": "首页",
+  "mineTab": "我的"
+}

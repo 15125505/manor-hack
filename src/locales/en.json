@@ -1,0 +1,15 @@
+{
+  "welcome": "Welcome to Manor",
+  "login": "Login",
+  "logout": "Logout",
+  "pleaseInstallWallet": "Please install the wallet",
+  "currentBalance": "Current Balance",
+  "welcomeToManor": "Welcome to Manor - Your Digital Asset Hub",
+  "refresh": "Refresh",
+  "myProfile": "My Profile",
+  "loginLoading": "Logging in...",
+  "loginSuccess": "Login successful",
+  "loginFailed": "Login failed",
+  "homeTab": "Home",
+  "mineTab": "Mine"
+}
