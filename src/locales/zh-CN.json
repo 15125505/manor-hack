@@ -146,7 +146,8 @@
       "inherited": "您还不是任何庄园的继承人"
     },
     "errors": {
-      "invalidName": "庄园名称需在1到50个字符之间"
+      "invalidNameLength": "庄园名称需在3到25个字符之间",
+      "reservedNaming": "Manor+数字是系统保留的命名规则"
     },
     "toast": {
       "enterUpcomingFeature": "进入{{name}}功能待实现"

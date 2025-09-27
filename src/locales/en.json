@@ -148,7 +148,8 @@
       "inherited": "You are not an inheritor of any manor"
     },
     "errors": {
-      "invalidName": "Manor name must be between 1 and 50 characters."
+      "invalidNameLength": "Manor name must be between 3 and 25 characters.",
+      "reservedNaming": "Manor followed by numbers is reserved for system use."
     },
     "toast": {
       "enterUpcomingFeature": "Entering {{name}} is not implemented yet"
