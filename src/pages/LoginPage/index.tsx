@@ -62,7 +62,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                         className="absolute text-center text-gray-700 font-bold text-shadow pointer-events-none"
                         style={{
                             left: '50.5%',
-                            top: '36.25%',
+                            top: '37.25%',
                             height: '9%',
                             fontSize: 'clamp(0.65rem, 1.6vw, 0.9rem)',
                             lineHeight: '1.2',
