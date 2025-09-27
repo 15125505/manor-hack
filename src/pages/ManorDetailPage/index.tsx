@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Button, Typography, Skeleton, useToast, Drawer, DrawerContent, DrawerHeader, DrawerTitle, Input } from "@worldcoin/mini-apps-ui-kit-react";
+import { Button, Typography, Skeleton, useToast } from "@worldcoin/mini-apps-ui-kit-react";
 import { useUserStore } from "../../stores/userStore";
 import { getChain } from "../../utils/tool";
 import { Refresh, Lock, Activity, User } from "iconoir-react";
@@ -7,6 +7,7 @@ import ManorIntro from "../../components/Manor/ManorIntro";
 import ManorDetailRow from "./ManorDetailRow";
 import DepositDrawer from "../../components/Manor/DepositDrawer.tsx";
 import ResultDrawer from "../../components/ResultDrawer";
+import RenameDrawer from "./RenameDrawer";
 import { gServer } from "../../utils/server.ts";
 import { useTranslation } from "react-i18next";
 
@@ -31,10 +32,7 @@ const ManorDetailPage: React.FC = () => {
     const [setInheritorsLoading, setSetInheritorsLoading] = useState<boolean>(false);
 
     // 修改庄园名称状态
-    const [renameLoading, setRenameLoading] = useState<boolean>(false);
     const [renameDrawerOpen, setRenameDrawerOpen] = useState<boolean>(false);
-    const [renameValue, setRenameValue] = useState("");
-    const [renameError, setRenameError] = useState<string | null>(null);
 
     // ResultDrawer 状态
     const [showResultDrawer, setShowResultDrawer] = useState(false);
@@ -99,77 +97,26 @@ const ManorDetailPage: React.FC = () => {
 
     // 修改庄园名称
     const handleOpenRenameDrawer = () => {
-        if (!manorInfo || renameLoading) return;
-        setRenameValue(manorInfo.name?.trim() ?? "");
-        setRenameError(null);
+        if (!manorInfo) return;
         setRenameDrawerOpen(true);
     };
 
     const handleCloseRenameDrawer = () => {
-        if (renameLoading) return;
         setRenameDrawerOpen(false);
-        setRenameError(null);
     };
 
-    const validateRename = (value: string) => {
-        const trimmed = value.trim();
-        if (trimmed.length === 0 || trimmed.length > 50) {
-            return t("manorDetail.errors.invalidName");
-        }
-        if (/^manor\d+$/i.test(trimmed)) {
-            return t("manorDetail.errors.invalidName");
-        }
-        return null;
+    const handleRenameSuccess = (newName: string) => {
+        setResultType("success");
+        setResultTitle(t("manorDetail.result.renameSuccessTitle"));
+        setResultDescription(t("manorDetail.result.renameSuccessDescription", { name: newName }));
+        setShowResultDrawer(true);
     };
 
-    const handleSubmitRename = async () => {
-        const chain = getChain();
-        if (!chain || !manorInfo) return;
-
-        const trimmed = renameValue.trim();
-        const validationError = validateRename(trimmed);
-        if (validationError) {
-            setRenameError(validationError);
-            return;
-        }
-
-        if (trimmed === (manorInfo.name?.trim() ?? "")) {
-            handleCloseRenameDrawer();
-            return;
-        }
-
-        setRenameLoading(true);
-        try {
-            const { transaction_id, mini_app_id } = await chain.renameManor(trimmed);
-
-            setPendingTransaction({
-                transaction_id,
-                mini_app_id,
-                timestamp: Date.now(),
-                functionName: "renameManor"
-            });
-
-            setResultType("success");
-            setResultTitle(t("manorDetail.result.renameSuccessTitle"));
-            setResultDescription(t("manorDetail.result.renameSuccessDescription", { name: trimmed }));
-            setShowResultDrawer(true);
-            setRenameError(null);
-            setRenameDrawerOpen(false);
-            setRenameValue(trimmed);
-        } catch (error) {
-            const errorMsg = formatError(error);
-            if (errorMsg.includes("user_rejected")) {
-                return;
-            }
-
-            setResultType("error");
-            setResultTitle(t("manorDetail.result.renameFailedTitle"));
-            setResultDescription(t("manorDetail.result.renameFailedDescription", { error: errorMsg }));
-            setShowResultDrawer(true);
-            setRenameError(errorMsg);
-        } finally {
-            setRenameLoading(false);
-        }
+    const handleRenameError = (errorMsg: string) => {
+        setResultType("error");
+        setResultTitle(t("manorDetail.result.renameFailedTitle"));
+        setResultDescription(t("manorDetail.result.renameFailedDescription", { error: errorMsg }));
+        setShowResultDrawer(true);
     };
 
     // 判断是否过期（可以取钱）
@@ -191,8 +138,7 @@ const ManorDetailPage: React.FC = () => {
             depositLoading === "pending" ||
             isLoading ||
             refreshActivityLoading ||
-            setInheritorsLoading ||
-            renameLoading
+            setInheritorsLoading
         );
     };
 
@@ -465,9 +411,9 @@ const ManorDetailPage: React.FC = () => {
                                     type="button"
                                     onClick={handleOpenRenameDrawer}
                                     disabled={renameDrawerOpen || isOperationInProgress()}
-                                    className="text-xs font-medium text-green-600 hover:text-green-700 disabled:text-gray-300 disabled:cursor-not-allowed"
+                                    className="text-xs font-medium text-green-600 hover:text-green-700 disabled:text-gray-300 disabled:cursor-not-allowed underline hover:no-underline transition-all"
                                 >
-                                    {renameLoading ? t("manorDetail.actions.renaming") : t("manorDetail.actions.rename")}
+                                    {t("manorDetail.actions.rename")}
                                 </button>
                             </div>
                             <Typography
@@ -704,59 +650,14 @@ const ManorDetailPage: React.FC = () => {
                 </div>
 
                 {/* 修改庄园名称抽屉 */}
-                <Drawer open={renameDrawerOpen} direction="bottom" onClose={handleCloseRenameDrawer}>
-                    <DrawerContent className="p-6 pb-8 flex flex-col h-[85vh] max-h-[600px] gap-6">
-                        <DrawerHeader>
-                            <DrawerTitle className="text-2xl font-bold">
-                                {t("manorDetail.renameDrawer.title")}
-                            </DrawerTitle>
-                        </DrawerHeader>
-                        <div className="flex-1 flex flex-col gap-4 overflow-y-auto px-0">
-                            <Typography variant="body" level={2} className="text-gray-500">
-                                {t("manorDetail.renameDrawer.description")}
-                            </Typography>
-                            <Input
-                                autoFocus
-                                maxLength={50}
-                                label={t("manorDetail.renameDrawer.inputLabel")}
-                                value={renameValue}
-                                onChange={(e) => {
-                                    setRenameValue(e.target.value);
-                                    setRenameError(null);
-                                }}
-                                error={Boolean(renameError)}
-                            />
-                            <Typography variant="body" level={3} className="text-xs text-gray-400">
-                                {t("manorDetail.renameDrawer.helper")}
-                            </Typography>
-                            {renameError && (
-                                <Typography variant="body" level={3} className="text-xs text-red-500">
-                                    {renameError}
-                                </Typography>
-                            )}
-                        </div>
-                        <div className="flex flex-col gap-3 pt-2">
-                            <Button
-                                variant="primary"
-                                size="lg"
-                                fullWidth={true}
-                                onClick={handleSubmitRename}
-                                disabled={renameLoading}
-                            >
-                                {renameLoading ? t("manorDetail.actions.renaming") : t("manorDetail.renameDrawer.confirm")}
-                            </Button>
-                            <Button
-                                variant="secondary"
-                                size="lg"
-                                fullWidth={true}
-                                onClick={handleCloseRenameDrawer}
-                                disabled={renameLoading}
-                            >
-                                {t("manorDetail.renameDrawer.cancel")}
-                            </Button>
-                        </div>
-                    </DrawerContent>
-                </Drawer>
+                <RenameDrawer
+                    open={renameDrawerOpen}
+                    onClose={handleCloseRenameDrawer}
+                    currentName={manorInfo?.name ?? ""}
+                    onSuccess={handleRenameSuccess}
+                    onError={handleRenameError}
+                    disabled={isOperationInProgress()}
+                />
 
                 {/* 使用纯净的详细介绍弹窗 */}
                 <ManorIntro open={showIntro} onClose={() => setShowIntro(false)} />
