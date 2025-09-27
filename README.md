@@ -34,3 +34,30 @@ This repository contains the **frontend mini program source code** used for demo
 ### Install dependencies
 ```bash
 npm install
+```
+
+### Run development server
+```bash
+npm run dev
+```
+
+### Build for production
+```bash
+npm run build
+```
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+### MIT License Summary
+- ✅ **Commercial use** - You can use this project for commercial purposes
+- ✅ **Modification** - You can modify the source code
+- ✅ **Distribution** - You can distribute copies of the software
+- ✅ **Private use** - You can use the software privately
+- ⚠️ **Liability** - The software comes with no warranty
+- ⚠️ **Attribution** - You must include the original copyright notice
+
+For hackathon participants: This project is fully open source under MIT license, allowing you to freely use, modify, and distribute the code.
