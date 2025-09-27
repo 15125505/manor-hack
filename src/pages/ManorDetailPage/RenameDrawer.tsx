@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
     Button,
     Typography,
@@ -38,6 +38,7 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
     const [renameError, setRenameError] = useState<string | null>(null);
     const [renameLoading, setRenameLoading] = useState<boolean>(false);
     const [keyboardInset, setKeyboardInset] = useState(0);
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
     // 当抽屉打开时，初始化输入值
     useEffect(() => {
@@ -56,6 +57,31 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
             setRenameError(null);
         }
     }, [renameValue]);
+
+    useEffect(() => {
+        if (!open) {
+            return;
+        }
+
+        if (typeof window === "undefined") {
+            return;
+        }
+
+        const timer = window.setTimeout(() => {
+            const inputEl = inputRef.current;
+            if (!inputEl) {
+                return;
+            }
+
+            inputEl.focus();
+            const valueLength = inputEl.value.length;
+            inputEl.setSelectionRange(valueLength, valueLength);
+        }, 500);
+
+        return () => {
+            window.clearTimeout(timer);
+        };
+    }, [open]);
 
     useEffect(() => {
         if (!open) {
@@ -99,7 +125,7 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
 
     const validateRename = (value: string) => {
         const trimmed = value.trim();
-        if (trimmed.length < 3 || trimmed.length > 25) {
+        if (trimmed.length < 2 || trimmed.length > 25) {
             return t("manorDetail.errors.invalidNameLength");
         }
         if (/^manor\d+$/i.test(trimmed)) {
@@ -169,6 +195,7 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
                         </Typography>
 
                         <Input
+                            ref={inputRef}
                             maxLength={25}
                             label={t("manorDetail.renameDrawer.inputLabel")}
                             value={renameValue}
