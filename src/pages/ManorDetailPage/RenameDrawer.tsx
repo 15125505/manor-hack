@@ -46,7 +46,7 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
 
     const validateRename = (value: string) => {
         const trimmed = value.trim();
-        if (trimmed.length === 0 || trimmed.length > 50) {
+        if (trimmed.length < 3 || trimmed.length > 25) {
             return t("manorDetail.errors.invalidName");
         }
         if (/^manor\d+$/i.test(trimmed)) {
@@ -56,9 +56,6 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
     };
 
     const handleSubmitRename = async () => {
-        const chain = getChain();
-        if (!chain) return;
-
         const trimmed = renameValue.trim();
         const validationError = validateRename(trimmed);
         if (validationError) {
@@ -66,10 +63,14 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
             return;
         }
 
+        // 如果名称没有变化，直接关闭抽屉，不调用API
         if (trimmed === (currentName?.trim() ?? "")) {
             handleClose();
             return;
         }
+
+        const chain = getChain();
+        if (!chain) return;
 
         setRenameLoading(true);
         try {
@@ -112,7 +113,7 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
                     </Typography>
                     <Input
                         autoFocus
-                        maxLength={50}
+                        maxLength={25}
                         label={t("manorDetail.renameDrawer.inputLabel")}
                         value={renameValue}
                         onChange={(e) => {

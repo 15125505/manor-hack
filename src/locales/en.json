@@ -170,14 +170,14 @@
     "dialogs": {
       "setHeirsPrompt": "Enter inheritor addresses (comma separated):",
       "setHeirsFeeConfirm": "Updating inheritors costs {{fee}} WLD.\n\nContinue?",
-      "renamePrompt": "Enter a new manor name (1-50 characters):"
+      "renamePrompt": "Enter a new manor name (3-25 characters):"
     },
     "renameDrawer": {
       "title": "Update manor name",
       "description": "Choose a name your family will recognize when they see this manor.",
       "inputLabel": "Manor name",
       "placeholder": "Enter a new manor name",
-      "helper": "Use 1-50 characters. Letters, numbers, spaces, and symbols are allowed.",
+      "helper": "Use 3-25 characters. Letters, numbers, spaces, and symbols are allowed.",
       "confirm": "Save name",
       "cancel": "Cancel"
     },

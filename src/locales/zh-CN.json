@@ -168,14 +168,14 @@
     "dialogs": {
       "setHeirsPrompt": "请输入继承人地址（多个地址用逗号分隔):",
       "setHeirsFeeConfirm": "修改继承人需要支付 {{fee}} WLD 手续费。\n\n继续操作吗？",
-      "renamePrompt": "请输入新的庄园名称（1-50个字符）："
+      "renamePrompt": "请输入新的庄园名称（3-25个字符）："
     },
     "renameDrawer": {
       "title": "修改庄园名称",
       "description": "为庄园取一个容易识别的名字。",
       "inputLabel": "庄园名称",
       "placeholder": "请输入新的庄园名称",
-      "helper": "支持 1-50 个字符，可包含字母、数字和符号。",
+      "helper": "支持 3-25 个字符，可包含字母、数字和符号。",
       "confirm": "保存名称",
       "cancel": "取消"
     },
