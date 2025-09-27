@@ -40,8 +40,9 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
 
     const handleClose = () => {
         if (renameLoading) return;
-        onClose();
+        // 先清理状态，再关闭抽屉，确保动画流畅
         setRenameError(null);
+        onClose();
     };
 
     const validateRename = (value: string) => {
@@ -101,7 +102,7 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
 
     return (
         <Drawer open={open} direction="bottom" onClose={handleClose}>
-            <DrawerContent className="p-6 pb-8 flex flex-col h-[85vh] max-h-[600px] gap-6">
+            <DrawerContent className="p-6 pb-8 flex flex-col h-[90vh] gap-6">
                 <DrawerHeader>
                     <DrawerTitle className="text-2xl font-bold">
                         {t("manorDetail.renameDrawer.title")}
