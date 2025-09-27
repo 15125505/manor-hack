@@ -68,6 +68,24 @@ const ManorDetailPage: React.FC = () => {
         [t],
     );
 
+    const manorDisplayName = useMemo(() => {
+        const rawName = manorInfo?.name?.trim();
+        if (!rawName) {
+            return t("manorDetail.title");
+        }
+
+        const match = rawName.match(/^([A-Za-z\s]+?)[-_]?(\d+)$/);
+        if (match) {
+            const [, prefix, digits] = match;
+            const normalizedPrefix = prefix.replace(/\s+/g, " ").trim();
+            const displayPrefix = normalizedPrefix.charAt(0).toUpperCase() + normalizedPrefix.slice(1);
+            const paddedDigits = digits.length <= 3 ? digits.padStart(3, "0") : digits;
+            return `${displayPrefix} #${paddedDigits}`;
+        }
+
+        return rawName;
+    }, [manorInfo?.name, t]);
+
     // 刷新庄园信息和用户代币信息
     const handleRefreshManorInfo = async () => {
         await fetchManorInfo();
@@ -352,9 +370,23 @@ const ManorDetailPage: React.FC = () => {
                 {/* 头部标题区域 */}
                 <div className="pb-4" style={{ borderBottom: "1px solid #e5e7eb" }}>
                     <div className="flex items-center justify-between">
-                        <Typography variant="heading" level={2} className="text-black">
-                            {t("manorDetail.title")}
-                        </Typography>
+                        <div className="flex flex-col gap-1 min-w-0">
+                            <Typography
+                                variant="label"
+                                level={2}
+                                className="text-xs font-medium uppercase tracking-[0.35em] text-gray-400"
+                            >
+                                {t("manorDetail.nameLabel")}
+                            </Typography>
+                            <Typography
+                                variant="heading"
+                                level={2}
+                                className="text-black font-semibold tracking-tight truncate"
+                                title={manorDisplayName}
+                            >
+                                {manorDisplayName}
+                            </Typography>
+                        </div>
 
                         <Button
                             variant="secondary"

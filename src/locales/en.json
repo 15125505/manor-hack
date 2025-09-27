@@ -116,6 +116,7 @@
   "manorDetail": {
     "fallbackTitle": "Unable to fetch manor information",
     "title": "My manor",
+    "nameLabel": "Manor name",
     "instructionsPrefix": "Review and manage your manor. If you have questions, please ",
     "instructionsSuffix": ".",
     "section": {

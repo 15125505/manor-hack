@@ -114,6 +114,7 @@
   "manorDetail": {
     "fallbackTitle": "无法获取庄园信息",
     "title": "我的庄园",
+    "nameLabel": "庄园名称",
     "instructionsPrefix": "查看并管理您的庄园，如有任何疑问请",
     "instructionsSuffix": "",
     "section": {
