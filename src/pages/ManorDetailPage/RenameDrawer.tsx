@@ -37,6 +37,7 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
     const [renameValue, setRenameValue] = useState("");
     const [renameError, setRenameError] = useState<string | null>(null);
     const [renameLoading, setRenameLoading] = useState<boolean>(false);
+    const [keyboardInset, setKeyboardInset] = useState(0);
 
     // 当抽屉打开时，初始化输入值
     useEffect(() => {
@@ -55,6 +56,40 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
             setRenameError(null);
         }
     }, [renameValue]);
+
+    useEffect(() => {
+        if (!open) {
+            setKeyboardInset(0);
+            return;
+        }
+
+        if (typeof window === "undefined") {
+            return;
+        }
+
+        const viewport = window.visualViewport;
+        if (!viewport) {
+            return;
+        }
+
+        const handleViewportChange = () => {
+            const keyboardHeight = Math.max(
+                0,
+                window.innerHeight - viewport.height - viewport.offsetTop
+            );
+            setKeyboardInset(keyboardHeight);
+        };
+
+        handleViewportChange();
+
+        viewport.addEventListener("resize", handleViewportChange);
+        viewport.addEventListener("scroll", handleViewportChange);
+
+        return () => {
+            viewport.removeEventListener("resize", handleViewportChange);
+            viewport.removeEventListener("scroll", handleViewportChange);
+        };
+    }, [open]);
 
     const handleClose = () => {
         if (renameLoading) return;
@@ -119,9 +154,9 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
 
     return (
         <Drawer open={open} direction="bottom" onClose={handleClose}>
-            <DrawerContent className="flex flex-col h-[100vh] p-6">
+            <DrawerContent className="flex flex-col p-6" style={{ minHeight: "100dvh" }}>
                 {/* 顶部内容区域 - 自然增长 */}
-                <div className="flex-1">
+                <div className="flex-1 overflow-y-auto">
                     <DrawerHeader>
                         <DrawerTitle className="text-2xl font-bold">
                             {t("manorDetail.renameDrawer.title")}
@@ -156,7 +191,10 @@ const RenameDrawer: React.FC<RenameDrawerProps> = ({
                 </div>
 
                 {/* 底部按钮区域 - 在正常文档流中 */}
-                <div className="pt-6">
+                <div
+                    className="pt-6"
+                    style={{ paddingBottom: `calc(env(safe-area-inset-bottom, 0px) + ${keyboardInset}px)` }}
+                >
                     <Button
                         variant="primary"
                         size="lg"
