@@ -15,7 +15,15 @@ const formatError = (error: unknown) => (error instanceof Error ? error.message 
 
 const ManorDetailPage: React.FC = () => {
     const { t, i18n } = useTranslation();
-    const { manorInfo, isLoading, fetchManorInfo, userTokens, setPendingTransaction, checkAndWaitForPendingTransaction, setLoading } = useUserStore();
+    const {
+        manorInfo,
+        isLoading,
+        fetchManorInfo,
+        userTokens,
+        setPendingTransaction,
+        checkAndWaitForPendingTransaction,
+        setLoading,
+    } = useUserStore();
     const [showIntro, setShowIntro] = useState(false);
     const [showDepositDrawer, setShowDepositDrawer] = useState(false);
     const [depositAmount, setDepositAmount] = useState("");
@@ -77,16 +85,6 @@ const ManorDetailPage: React.FC = () => {
         if (!rawName) {
             return t("manorDetail.title");
         }
-
-        const match = rawName.match(/^([A-Za-z\s]+?)[-_]?(\d+)$/);
-        if (match) {
-            const [, prefix, digits] = match;
-            const normalizedPrefix = prefix.replace(/\s+/g, " ").trim();
-            const displayPrefix = normalizedPrefix.charAt(0).toUpperCase() + normalizedPrefix.slice(1);
-            const paddedDigits = digits.length <= 3 ? digits.padStart(3, "0") : digits;
-            return `${displayPrefix} #${paddedDigits}`;
-        }
-
         return rawName;
     }, [manorInfo?.name, t]);
 
@@ -142,7 +140,6 @@ const ManorDetailPage: React.FC = () => {
         );
     };
 
-
     // 存入WBTC
     const handleDepositWBTC = async (amount: number, periodSeconds: number) => {
         const chain = getChain();
@@ -158,7 +155,7 @@ const ManorDetailPage: React.FC = () => {
                 transaction_id,
                 mini_app_id,
                 timestamp: Date.now(),
-                functionName: 'depositWBTC'
+                functionName: "depositWBTC",
             });
 
             setDepositLoading("success");
@@ -167,9 +164,7 @@ const ManorDetailPage: React.FC = () => {
             setResultType("success");
             const formattedAmount = amount.toFixed(8);
             setResultTitle(t("manorDetail.result.depositSuccessTitle"));
-            setResultDescription(
-                t("manorDetail.result.depositSuccessDescription", { amount: formattedAmount }),
-            );
+            setResultDescription(t("manorDetail.result.depositSuccessDescription", { amount: formattedAmount }));
 
             // 关闭存入抽屉，显示结果抽屉
             setShowDepositDrawer(false);
@@ -212,7 +207,7 @@ const ManorDetailPage: React.FC = () => {
                 transaction_id,
                 mini_app_id,
                 timestamp: Date.now(),
-                functionName: 'withdrawWBTC'
+                functionName: "withdrawWBTC",
             });
 
             setWithdrawLoading("success");
@@ -220,9 +215,7 @@ const ManorDetailPage: React.FC = () => {
             // 显示成功结果
             setResultType("success");
             setResultTitle(t("manorDetail.result.withdrawSuccessTitle"));
-            setResultDescription(
-                t("manorDetail.result.withdrawSuccessDescription", { amount: withdrawnAmount }),
-            );
+            setResultDescription(t("manorDetail.result.withdrawSuccessDescription", { amount: withdrawnAmount }));
 
             // 显示结果抽屉
             setShowResultDrawer(true);
@@ -247,7 +240,7 @@ const ManorDetailPage: React.FC = () => {
         }
     };
 
-     // 处理结果抽屉关闭
+    // 处理结果抽屉关闭
     const handleResultDrawerClose = async () => {
         setShowResultDrawer(false);
         if (resultType === "success" && !isLoading) {
@@ -275,9 +268,7 @@ const ManorDetailPage: React.FC = () => {
 
             const confirmMessage = t("manorDetail.dialogs.setHeirsPrompt");
             if (needPayment) {
-                const payConfirm = confirm(
-                    t("manorDetail.dialogs.setHeirsFeeConfirm", { fee }),
-                );
+                const payConfirm = confirm(t("manorDetail.dialogs.setHeirsFeeConfirm", { fee }));
                 if (!payConfirm) {
                     setSetInheritorsLoading(false);
                     return;
@@ -299,7 +290,7 @@ const ManorDetailPage: React.FC = () => {
                 transaction_id,
                 mini_app_id,
                 timestamp: Date.now(),
-                functionName: 'setInheritors'
+                functionName: "setInheritors",
             });
 
             // 不立即刷新数据，等ResultDrawer关闭时再刷新
@@ -326,7 +317,7 @@ const ManorDetailPage: React.FC = () => {
                 transaction_id,
                 mini_app_id,
                 timestamp: Date.now(),
-                functionName: 'refreshActivity'
+                functionName: "refreshActivity",
             });
 
             // 显示成功结果
