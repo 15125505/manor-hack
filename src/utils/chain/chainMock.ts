@@ -163,6 +163,12 @@ class ChainMock extends ChainBase {
         return result;
     }
 
+    async renameManor(newName: string): Promise<TransactionResult> {
+        const result = await this.simulateTransaction("更新庄园名称");
+        this.manorName = newName;
+        return result;
+    }
+
     async refreshActivity(): Promise<TransactionResult> {
         const result = await this.simulateTransaction("刷新活跃度");
         this.lastActiveTime = Math.floor(Date.now() / 1000);

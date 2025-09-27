@@ -231,6 +231,14 @@ class ZWorld extends ChainBase {
         return await this.sendMiniKitTransaction(params);
     }
 
+    async renameManor(newName: string): Promise<TransactionResult> {
+        return await this.sendMiniKitTransaction({
+            functionName: "setManorName",
+            args: [newName],
+            appendPermit2Args: true,
+        });
+    }
+
     async refreshActivity(): Promise<TransactionResult> {
         return await this.sendMiniKitTransaction({
             functionName: "refreshActivity",

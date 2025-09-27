@@ -75,6 +75,9 @@ export abstract class ChainBase {
         manorOwnerAddress?: string // 如果提供则是维护他人庄园，否则是设置自己的
     ): Promise<TransactionResult>;
 
+    // 更新庄园名称
+    abstract renameManor(newName: string): Promise<TransactionResult>;
+
     // 刷新活跃度
     abstract refreshActivity(): Promise<TransactionResult>;
 

@@ -137,11 +137,16 @@
       "refreshActivity": "更新活跃",
       "setHeirsInProgress": "设置中...",
       "setHeirs": "设置继承人",
+      "rename": "修改名称",
+      "renaming": "修改中...",
       "enterManor": "进入庄园"
     },
     "empty": {
       "heirs": "暂无继承人",
       "inherited": "您还不是任何庄园的继承人"
+    },
+    "errors": {
+      "invalidName": "庄园名称需在1到50个字符之间"
     },
     "toast": {
       "enterUpcomingFeature": "进入{{name}}功能待实现"
@@ -154,11 +159,25 @@
       "withdrawFailedTitle": "取钱失败",
       "activitySuccessTitle": "活跃度更新成功！",
       "activitySuccessDescription": "您的庄园活跃时间已更新",
-      "activityFailedTitle": "活跃度更新失败"
+      "activityFailedTitle": "活跃度更新失败",
+      "renameSuccessTitle": "名称已更新",
+      "renameSuccessDescription": "您的庄园现在名为 {{name}}",
+      "renameFailedTitle": "名称更新失败",
+      "renameFailedDescription": "无法更新庄园名称：{{error}}"
     },
     "dialogs": {
       "setHeirsPrompt": "请输入继承人地址（多个地址用逗号分隔):",
-      "setHeirsFeeConfirm": "修改继承人需要支付 {{fee}} WLD 手续费。\n\n继续操作吗？"
+      "setHeirsFeeConfirm": "修改继承人需要支付 {{fee}} WLD 手续费。\n\n继续操作吗？",
+      "renamePrompt": "请输入新的庄园名称（1-50个字符）："
+    },
+    "renameDrawer": {
+      "title": "修改庄园名称",
+      "description": "为庄园取一个容易识别的名字。",
+      "inputLabel": "庄园名称",
+      "placeholder": "请输入新的庄园名称",
+      "helper": "支持 1-50 个字符，可包含字母、数字和符号。",
+      "confirm": "保存名称",
+      "cancel": "取消"
     },
     "samples": {
       "manorName": "测试庄园",

@@ -139,11 +139,16 @@
       "refreshActivity": "Refresh activity",
       "setHeirsInProgress": "Setting...",
       "setHeirs": "Set inheritors",
+      "rename": "Rename",
+      "renaming": "Renaming...",
       "enterManor": "Enter manor"
     },
     "empty": {
       "heirs": "No inheritors yet",
       "inherited": "You are not an inheritor of any manor"
+    },
+    "errors": {
+      "invalidName": "Manor name must be between 1 and 50 characters."
     },
     "toast": {
       "enterUpcomingFeature": "Entering {{name}} is not implemented yet"
@@ -156,11 +161,25 @@
       "withdrawFailedTitle": "Withdrawal failed",
       "activitySuccessTitle": "Activity refreshed!",
       "activitySuccessDescription": "Your manor activity timestamp has been refreshed",
-      "activityFailedTitle": "Activity refresh failed"
+      "activityFailedTitle": "Activity refresh failed",
+      "renameSuccessTitle": "Manor name updated",
+      "renameSuccessDescription": "Your manor is now called {{name}}",
+      "renameFailedTitle": "Name update failed",
+      "renameFailedDescription": "We couldn't update the manor name: {{error}}"
     },
     "dialogs": {
       "setHeirsPrompt": "Enter inheritor addresses (comma separated):",
-      "setHeirsFeeConfirm": "Updating inheritors costs {{fee}} WLD.\n\nContinue?"
+      "setHeirsFeeConfirm": "Updating inheritors costs {{fee}} WLD.\n\nContinue?",
+      "renamePrompt": "Enter a new manor name (1-50 characters):"
+    },
+    "renameDrawer": {
+      "title": "Update manor name",
+      "description": "Choose a name your family will recognize when they see this manor.",
+      "inputLabel": "Manor name",
+      "placeholder": "Enter a new manor name",
+      "helper": "Use 1-50 characters. Letters, numbers, spaces, and symbols are allowed.",
+      "confirm": "Save name",
+      "cancel": "Cancel"
     },
     "samples": {
       "manorName": "Sample Manor",

@@ -329,6 +329,29 @@ class ZMetaMask extends ChainBase {
         };
     }
 
+    async renameManor(newName: string): Promise<TransactionResult> {
+        const acc = await this.getAccount();
+
+        const data = encodeFunctionData({
+            abi: ScallionManorAbi.abi,
+            functionName: "setManorName",
+            args: [newName],
+        });
+
+        const txHash = await this.client.sendTransaction({
+            chain: this.chain,
+            account: acc,
+            to: this.contractAddress,
+            data,
+        });
+        console.log('--修改庄园名称交易哈希:', txHash);
+
+        return {
+            transaction_id: txHash,
+            mini_app_id: "metamask_app_id"
+        };
+    }
+
     async refreshActivity(): Promise<TransactionResult> {
         const acc = await this.getAccount();
 
