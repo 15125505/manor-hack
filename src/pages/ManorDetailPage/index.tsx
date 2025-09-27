@@ -706,7 +706,7 @@ const ManorDetailPage: React.FC = () => {
                 {/* 修改庄园名称抽屉 */}
                 <Drawer open={renameDrawerOpen} direction="bottom" onClose={handleCloseRenameDrawer}>
                     <DrawerContent className="p-6 pb-8 flex flex-col h-[85vh] max-h-[600px] gap-6">
-                        <DrawerHeader className="px-0">
+                        <DrawerHeader>
                             <DrawerTitle className="text-2xl font-bold">
                                 {t("manorDetail.renameDrawer.title")}
                             </DrawerTitle>
@@ -719,7 +719,6 @@ const ManorDetailPage: React.FC = () => {
                                 autoFocus
                                 maxLength={50}
                                 label={t("manorDetail.renameDrawer.inputLabel")}
-                                placeholder={t("manorDetail.renameDrawer.placeholder")}
                                 value={renameValue}
                                 onChange={(e) => {
                                     setRenameValue(e.target.value);
