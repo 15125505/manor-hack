@@ -11,7 +11,21 @@ This repository contains the **frontend mini program source code** used for demo
 
 ⚠️ **Note**:
 - The **core backend and smart contracts** were completed **before** the hackathon.
-- This repository focuses on the **frontend integration and features developed during the hackathon**, demonstrating the product’s core value.
+- This repository focuses on the **frontend integration and features developed during the hackathon**, demonstrating the product's core value.
+
+---
+
+## 🔗 Live Demo & Smart Contract
+
+### 📱 Mini Program
+**Try the live demo on World App:**
+[https://world.org/mini-app?app_id=app_70ff18a3a8a84dc8f2532061c8bfdf37](https://world.org/mini-app?app_id=app_70ff18a3a8a84dc8f2532061c8bfdf37)
+
+### 🔐 Smart Contract
+**View the smart contract on WorldScan:**
+[0x6EA33738ef28C274F8E08F0b5fD213C79e0E569C](https://worldscan.org/address/0x6EA33738ef28C274F8E08F0b5fD213C79e0E569C#code)
+
+*Smart contract handles secure asset storage, inheritance mechanisms, and automated distribution logic.*
 
 ---
 
